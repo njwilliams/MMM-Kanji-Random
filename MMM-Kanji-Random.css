@@ -1,0 +1,41 @@
+.MMM-Kanji-Random {
+   width: 50%;
+   margin: auto;
+}
+
+.MMM-Kanji-Random .kanji {
+  font-size: 200%;
+  line-height: 1.4;
+}
+
+.MMM-Kanji-Random .uncommon.kanji {
+  color: orange;
+}
+
+.MMM-Kanji-Random ul {
+  list-style-type: none;
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+.MMM-Kanji-Random li {
+  margin-top: 5px;
+  line-height: normal;
+}
+
+.MMM-Kanji-Random .readings {
+  font-size: 12pt;
+  font-weight: light;
+}
+.MMM-Kanji-Random .readings .kun {
+  color: cyan;
+}
+.MMM-Kanji-Random .readings .on {
+  color: green;
+}
+
+.MMM-Kanji-Random .definition {
+  font-size: 12pt;
+  font-weight: light;
+}
+

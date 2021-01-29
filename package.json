@@ -1,0 +1,23 @@
+{
+  "name": "mmm-kanji-random",
+  "version": "1.0.0",
+  "description": "Magic mirror module which displays a random Kanji",
+  "main": "MMM-Kanji-Random.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/njwilliams/MMM-Kanji-Random.git"
+  },
+  "author": "Nick Williams",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/njw/MMM-Kanji-Random/issues"
+  },
+  "homepage": "https://github.com/njw/MMM-Kanji-Random#readme",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "he": "^1.2.0"
+  }
+}
