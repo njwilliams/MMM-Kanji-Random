@@ -51,7 +51,8 @@ modules: [
 The following properties can be configured:
 
 | **Option** | **Values** | **Description** |
+|---|---|---|
 | type | random, elementary, jlpt, minna no nihongo | Selects the source of the Kanji. Random will pick from all of the sources and has no other options. If one of the other types is chosen, then the level option must also be provided |
 | level | N1-N5, 1-6, 1-2 | Sets the level of the given type. JLPT uses "N1", "N2", etc. Elementary grades are 1 through 6. Minna No Nihongo just has 1 and 2 |
 | minsBeforeChange | 60 | How many minutes before the Kanji is changed. The default is 60 (i.e. hourly). |
-TBD
+
