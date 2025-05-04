@@ -23,15 +23,10 @@
   line-height: normal;
 }
 
-.MMM-Kanji-Random .readings {
+.MMM-Kanji-Random .furigana {
   font-size: 12pt;
   font-weight: light;
-}
-.MMM-Kanji-Random .readings .kun {
   color: cyan;
-}
-.MMM-Kanji-Random .readings .on {
-  color: green;
 }
 
 .MMM-Kanji-Random .definition {
