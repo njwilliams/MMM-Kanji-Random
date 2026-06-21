@@ -12,6 +12,24 @@
   color: orange;
 }
 
+.MMM-Kanji-Random .stroke-box {
+  margin: 0 4px;
+  vertical-align: middle;
+}
+
+.MMM-Kanji-Random.loading .kanji {
+  opacity: 0.6;
+}
+
+.MMM-Kanji-Random.loading .definition {
+  animation: mmm-kanji-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes mmm-kanji-pulse {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 0.8; }
+}
+
 .MMM-Kanji-Random ul {
   list-style-type: none;
   padding-left: 0px;
@@ -32,5 +50,10 @@
 .MMM-Kanji-Random .definition {
   font-size: 12pt;
   font-weight: light;
+}
+
+.MMM-Kanji-Random .lookup-error {
+  color: #ff6b6b;
+  font-style: italic;
 }
 
