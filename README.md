@@ -47,8 +47,18 @@ The following properties can be configured:
 
 | **Option** | **Values** | **Description** |
 |---|---|---|
-| level | N1-N5 | Sets the difficulty/commonality of the vocabulary. N5 is the simplest. N1 is more advanced. Only words of the given rating will be shown. |
+| level | N1-N5 | Sets the difficulty/commonality of the vocabulary. N5 is the simplest. N1 is more advanced. Only words of the given rating will be shown. Defaults to N5. |
 | minsBeforeChange | 60 | How many minutes before the Kanji is changed. The default is 60 (i.e. hourly). |
+| maxDefinitions | 4 | Maximum number of dictionary definitions (senses) to display. |
+| dictTimeout | 8000 | Milliseconds to wait for the jisho.org dictionary lookup before giving up. On the first load the module shows a loading screen until the lookup completes; if it times out, the kanji is shown with a visible "Dictionary lookup timed out" message. |
+| animateStrokeOrder | true | Animate the stroke order of each character using [HanziWriter](https://chanind.github.io/hanzi-writer/) with KanjiVG data. Requires an internet connection (scripts/data are loaded from the jsDelivr CDN). Characters without stroke data (e.g. some kana) fall back to plain text. |
+| strokeSize | 80 | Size in pixels of each animated character. |
+| strokeAnimationSpeed | 1 | Animation speed. 1 is normal; higher is faster. |
+| strokeDelay | 400 | Milliseconds to pause between strokes. |
+| strokeLoopDelay | 2000 | Milliseconds to pause before the animation loops. |
+| strokeColor | "#ffffff" | Colour of the drawn strokes. |
+| strokeOutlineColor | "#444444" | Colour of the character outline shown before/under the strokes. |
+| strokeUncommonColor | "orange" | Stroke colour used when the kanji is flagged as uncommon by the dictionary. |
 
 
 ## Source

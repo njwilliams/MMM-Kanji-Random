@@ -6,7 +6,6 @@
  */
 
 const NodeHelper = require("node_helper");
-const request = require("request");
 const sync = require("csv-parse/sync");
 const name = "MMM-Kanji-Random";
 const fs = require("fs");
@@ -66,21 +65,22 @@ module.exports = NodeHelper.create({
         self.sendSocketNotification('KANJI_RESULT', reply)
 
         // and asynchronously, go lookup the definition of the kanji
-        url = new URL("http://jisho.org/api/v1/search/words?keyword=" + glyph);
+        url = new URL("https://jisho.org/api/v1/search/words?keyword=" + glyph);
         console.log(name + ": kanji random is requesting " + url);
-        request({url:url, method:'GET'}, function(err, resp, content) {
-            if (!err && resp.statusCode == 200) {
-                json = JSON.parse(content);
-                self.sendSocketNotification('DICT_RESULT', json)
-                console.log(name + ": successfully looked up dictionary entry")
-            } else {
-                if (err) {
-                    console.log(name + ": dictionary error " + err);
-                } else {
-                    console.log(name + ": dictionary bad response " + resp.statusCode);
+        fetch(url, { method: 'GET' })
+            .then(function(resp) {
+                if (!resp.ok) {
+                    throw new Error("bad response " + resp.status);
                 }
-            };
-        });
+                return resp.json();
+            })
+            .then(function(json) {
+                self.sendSocketNotification('DICT_RESULT', json);
+                console.log(name + ": successfully looked up dictionary entry");
+            })
+            .catch(function(err) {
+                console.log(name + ": dictionary error " + err);
+            });
     },
 });
  
