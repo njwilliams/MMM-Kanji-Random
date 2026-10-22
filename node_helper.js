@@ -70,7 +70,8 @@ module.exports = NodeHelper.create({
         // jisho.org rejects Node's default User-Agent ("node"/"undici") with a 403
         fetch(url, {
                 method: 'GET',
-                headers: { 'User-Agent': 'MMM-Kanji-Random/1.0 (+https://github.com/njwilliams/MMM-Kanji-Random)' }
+                headers: { 'User-Agent': 'MMM-Kanji-Random/1.0 (+https://github.com/njwilliams/MMM-Kanji-Random)' },
+                signal: AbortSignal.timeout(payload.dictTimeout)
             })
             .then(function(resp) {
                 if (!resp.ok) {
@@ -84,6 +85,7 @@ module.exports = NodeHelper.create({
             })
             .catch(function(err) {
                 console.log(name + ": dictionary error " + err);
+                self.sendSocketNotification('DICT_ERROR', { 'error': err.message });
             });
     },
 });
