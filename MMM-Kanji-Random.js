@@ -41,7 +41,8 @@ Module.register('MMM-Kanji-Random',{
         var self = this;
         var request = { 
                           "level": self.config.level,
-                          "file": this.file("jlpt_vocab.csv")
+                          "file": this.file("jlpt_vocab.csv"),
+                          "dictTimeout": self.config.dictTimeout
                       };
         self.sendSocketNotification('START', request);
         setInterval(function() {
@@ -130,10 +131,10 @@ Module.register('MMM-Kanji-Random',{
             senses.appendChild(li);
 
             // Make the failure visible to the user, not just in the logs
-            if (this.dictTimedOut) {
+            if (this.dictError) {
                 var err = document.createElement("li");
                 err.className = "lookup-error";
-                err.textContent = "⚠ Dictionary lookup timed out";
+                err.textContent = "⚠ " + this.dictError;
                 senses.appendChild(err);
             } else if (this.dict) {
                 var none = document.createElement("li");
@@ -283,14 +284,16 @@ Module.register('MMM-Kanji-Random',{
             this.furigana   = payload.furigana;
 
             this.dict = null;
-            this.dictTimedOut = false;
+            this.dictError = null;
 
             // Wait for the dictionary lookup, but don't wait forever: after the
-            // timeout, show the kanji anyway with a visible error.
+            // timeout, show the kanji anyway with a visible error. The node
+            // helper aborts its request at the same timeout and normally
+            // reports DICT_ERROR first; this timer covers a lost reply.
             var self = this;
             clearTimeout(this._dictTimer);
             this._dictTimer = setTimeout(function() {
-                self.dictTimedOut = true;
+                self.dictError = "Dictionary lookup timed out";
                 self._firstPaintReady = true;
                 Log.warn(self.name + ": dictionary lookup timed out for " + self.kanji);
                 self.updateDom();
@@ -302,7 +305,14 @@ Module.register('MMM-Kanji-Random',{
         if (notification == "DICT_RESULT") {
             clearTimeout(this._dictTimer);
             this.dict = payload;
-            this.dictTimedOut = false;
+            this.dictError = null;
+            this._firstPaintReady = true;
+            this.updateDom();
+        }
+
+        if (notification == "DICT_ERROR") {
+            clearTimeout(this._dictTimer);
+            this.dictError = "Dictionary lookup failed: " + payload.error;
             this._firstPaintReady = true;
             this.updateDom();
         }

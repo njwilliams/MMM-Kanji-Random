@@ -67,7 +67,12 @@ module.exports = NodeHelper.create({
         // and asynchronously, go lookup the definition of the kanji
         url = new URL("https://jisho.org/api/v1/search/words?keyword=" + glyph);
         console.log(name + ": kanji random is requesting " + url);
-        fetch(url, { method: 'GET' })
+        // jisho.org rejects Node's default User-Agent ("node"/"undici") with a 403
+        fetch(url, {
+                method: 'GET',
+                headers: { 'User-Agent': 'MMM-Kanji-Random/1.0 (+https://github.com/njwilliams/MMM-Kanji-Random)' },
+                signal: AbortSignal.timeout(payload.dictTimeout)
+            })
             .then(function(resp) {
                 if (!resp.ok) {
                     throw new Error("bad response " + resp.status);
@@ -80,6 +85,7 @@ module.exports = NodeHelper.create({
             })
             .catch(function(err) {
                 console.log(name + ": dictionary error " + err);
+                self.sendSocketNotification('DICT_ERROR', { 'error': err.message });
             });
     },
 });
